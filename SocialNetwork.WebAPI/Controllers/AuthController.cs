@@ -26,5 +26,6 @@ namespace SocialNetwork.WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("verifypassword")]
     }
 }
