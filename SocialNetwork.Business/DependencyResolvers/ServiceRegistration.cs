@@ -22,7 +22,16 @@ namespace SocialNetwork.Business.DependencyResolvers
 
             services.AddScoped<IUserService, UserManager>();
             services.AddScoped<IUserDAL, EFUserDAL>();
-            
+
+            services.AddScoped<IPostService, PostManager>();
+            services.AddScoped<IPostDAL, EFPostDAL>();
+
+            services.AddScoped<ICommentService,  CommentManager>();
+            services.AddScoped<ICommentDAL, EFCommentDAL>();
+
+            services.AddScoped<IReactionService, ReactionManager>();
+            services.AddScoped<IReactionDAL, EFReactionDAL>();
+
             // Cloudflare
             // Dependency Injection, Dependency Inversion, IOC
             // AddSingleton, AddScoped, AddTrasient

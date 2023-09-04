@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Business.Abstract;
+using SocialNetwork.Core.Utilities.EmailHelper;
 using SocialNetwork.Entities.DTOs.UserDTOs;
 
 namespace SocialNetwork.WebAPI.Controllers
@@ -17,7 +18,7 @@ namespace SocialNetwork.WebAPI.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(UserRegisterDTO userRegisterDTO)
+        public IActionResult Register([FromBody]UserRegisterDTO userRegisterDTO)
         {
             var result = _userService.Register(userRegisterDTO);
 
@@ -27,5 +28,23 @@ namespace SocialNetwork.WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("verifypassword")]
+        public IActionResult VerifyPassword([FromQuery]string email, [FromQuery]string token)
+        {
+            var result = _userService.VerifyEmail(email, token);
+            if (result.Success)
+                return Ok(result);
+            
+            return BadRequest(result);
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login([FromBody]UserLoginDTO userLoginDTO)
+        {
+            var result = _userService.Login(userLoginDTO);
+            if(result.Success)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
     }
 }

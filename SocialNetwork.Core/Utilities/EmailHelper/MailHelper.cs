@@ -15,11 +15,9 @@ namespace SocialNetwork.Core.Utilities.EmailHelper
         {
             var emailAddress = EmailConfiguration.Email;
             var emailPassword = EmailConfiguration.Password;
-
             string senderEmail = emailAddress;
             string senderPassword = emailPassword;
 
-            // Smtp, Mailkit
             //Create the SMTP client
             SmtpClient smtpClient = new(EmailConfiguration.Smtp, EmailConfiguration.Port);
             smtpClient.EnableSsl = true;
@@ -32,15 +30,17 @@ namespace SocialNetwork.Core.Utilities.EmailHelper
                 mailMessage.From = new MailAddress(senderEmail);
                 mailMessage.To.Add(mailAddress);
                 mailMessage.Subject = $"Message from - {EmailConfiguration.Email}";
-                mailMessage.Body = $"<a href=''>Tesdiq et</a>";
+                mailMessage.Body = $"<a href='https://localhost:7076/api/auth/verifypassword?email={mailAddress}&token={token}'>Tesdiq et</a>";
                 // Specify that the body contains HTML
                 mailMessage.IsBodyHtml = true;
                 // Send the email
                 smtpClient.Send(mailMessage);
+                Console.WriteLine("Email sent successfully.");
                 return true;
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Error sending email: " + ex.Message);
                 return false;
             }
         }

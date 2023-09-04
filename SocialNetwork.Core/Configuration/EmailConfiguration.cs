@@ -16,11 +16,11 @@ namespace SocialNetwork.Core.Configuration
 
         private static ConfigurationManager GetConfiguration()
         {
-            ConfigurationManager manager = new();
+            ConfigurationManager configurationManager = new();
 
-            manager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../WebAPI"));
-            manager.AddJsonFile("appsettings.json");
-            return manager;
+            configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../SocialNetwork.WebAPI"));
+            configurationManager.AddJsonFile("appsettings.json");
+            return configurationManager;
         }
     }
 }
